@@ -1,4 +1,10 @@
-Revision history for Data-Sah-Util-JS
+Revision history for Nodejs-Util
+
+0.002   2016-05-17 (PERLANCAR)
+
+        - Rename dist from Data-Sah-Util-JS to Nodejs-Util because there is no
+          Data::Sah-specific stuff in this.
+
 
 0.001   2016-05-17 (PERLANCAR)
 

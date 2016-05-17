@@ -1,4 +1,4 @@
-package Data::Sah::Util::JS;
+package Nodejs::Util;
 
 # DATE
 # VERSION
@@ -10,9 +10,6 @@ use warnings;
 use Exporter qw(import);
 our @EXPORT_OK = qw(get_nodejs_path);
 
-# check availability of the node.js executable, return the path to executable or
-# undef if none is available. node.js is normally installed as 'node', except on
-# debian ('nodejs').
 sub get_nodejs_path {
     require File::Which;
 
@@ -34,12 +31,16 @@ sub get_nodejs_path {
 }
 
 1;
-# ABSTRACT: Utilities related to JavaScript
+# ABSTRACT: Utilities related to Node.js
 
 =head1 FUNCTIONS
 
 None exported by default.
 
 =head2 get_nodejs_path() => str
+
+Check availability of the Node.js executable in the PATH. Return the path to
+executable or undef if none is available. Node.js is usually installed as 'node'
+or 'nodejs'.
 
 =cut
