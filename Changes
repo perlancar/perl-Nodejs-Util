@@ -1,0 +1,6 @@
+Revision history for Data-Sah-Util-JS
+
+0.001   2016-05-17 (PERLANCAR) (unreleased)
+
+        - First release, split from Data-Sah to avoid code duplication (planning
+          to use this from Data-Sah-CoerceJS also).
