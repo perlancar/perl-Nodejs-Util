@@ -12,6 +12,7 @@ our @EXPORT_OK = qw(get_nodejs_path);
 
 sub get_nodejs_path {
     require File::Which;
+    require IPC::System::Options;
 
     my $path;
     for my $name (qw/nodejs node/) {
@@ -19,8 +20,8 @@ sub get_nodejs_path {
         next unless $path;
 
         # check if it's really nodejs
-        my $cmd = "$path -e 'console.log(1+1)'";
-        my $out = `$cmd`;
+        my $out = IPC::System::Options::backtick(
+            $path, '-e', 'console.log(1+1)');
         if ($out =~ /\A2\n?\z/) {
             return $path;
         } else {
