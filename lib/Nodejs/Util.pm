@@ -20,7 +20,7 @@ sub get_nodejs_path {
         next unless $path;
 
         # check if it's really nodejs
-        my $out = IPC::System::Options::backtick(
+        my $out = IPC::System::Options::readpipe(
             $path, '-e', 'console.log(1+1)');
         if ($out =~ /\A2\n?\z/) {
             return $path;
