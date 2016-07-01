@@ -131,7 +131,8 @@ sub nodejs_available {
 
     unless (@filtered_paths) {
         $res->[0] = 412;
-        $res->[1] = "No eligible node.js found in PATH";
+        $res->[1] = @errors == 1 ? $errors[0] :
+            "No eligible node.js found in PATH";
     }
 
     $res;
