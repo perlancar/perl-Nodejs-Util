@@ -1,5 +1,14 @@
 Revision history for Nodejs-Util
 
+0.005   2016-07-01 (PERLANCAR)
+
+        - Add nodejs_available().
+
+        - get_nodejs_path(): Add option 'all'.
+
+        - Adjust to IPC::System::Options 0.27 (backtick renamed to readpipe).
+
+
 0.004   2016-06-04 (PERLANCAR)
 
 	- Use IPC::System::Options 0.25's backtick() for proper
