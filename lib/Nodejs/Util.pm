@@ -18,7 +18,7 @@ my %arg_all = (
         summary => 'Find all node.js instead of the first found',
         description => <<'_',
 
-If this option is set to true, will return an array of paths intead of paths.
+If this option is set to true, will return an array of paths intead of path.
 
 _
     },
