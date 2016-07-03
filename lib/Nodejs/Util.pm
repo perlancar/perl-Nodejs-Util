@@ -89,7 +89,10 @@ _
         min_version => {
             schema => 'str*',
         },
-        # XXX extra_paths (but we can localize $ENV{PATH} to accomplish this)
+        path => {
+            summary => 'Search this instead of PATH environment variable',
+            schema => ['str*'],
+        },
         %arg_all,
     },
 };
@@ -99,7 +102,10 @@ sub nodejs_available {
     my %args = @_;
     my $all = $args{all};
 
-    my $paths = get_nodejs_path(all => 1);
+    my $paths = do {
+        local $ENV{PATH} = $args{path} if defined $args{path};
+        get_nodejs_path(all => 1);
+    };
     defined $paths or return [412, "node.js not detected in PATH"];
 
     my $res = [200, "OK"];
@@ -146,19 +152,27 @@ sub system_nodejs {
     require IPC::System::Options;
     my $opts = ref($_[0]) eq 'HASH' ? shift : {};
 
+    my $harmony_scoping = delete $opts->{harmony_scoping};
+    my $path = delete $opts->{path};
+
     my %detect_nodejs_args;
-    if ($opts->{harmony_scoping}) {
+    if ($harmony_scoping) {
         $detect_nodejs_args{min_version} = '0.5.10';
+    }
+    if ($path) {
+        $detect_nodejs_args{path} = $path;
     }
     my $detect_res = nodejs_available(%detect_nodejs_args);
     die "No eligible node.js binary available: ".
         "$detect_res->[0] - $detect_res->[1]" unless $detect_res->[0] == 200;
 
     my @extra_args;
-    if ($opts->{harmony_scoping}) {
+    if ($harmony_scoping) {
         my $node_v = $detect_res->[3]{'func.version'};
         if (version->parse($node_v) < version->parse("2.0.0")) {
             push @extra_args, "--use_strict", "--harmony_scoping";
+        } else {
+            push @extra_args, "--use_strict";
         }
     }
 
@@ -188,6 +202,10 @@ If set to 1, will attempt to enable block scoping. This means at least node.js
 v0.5.10 (where C<--harmony_scoping> is first recognized). But
 C<--harmony_scoping> is no longer needed after v2.0.0 and no longer recognized
 in later versions.
+
+=item * path => str
+
+Will be passed to C<nodejs_available()>.
 
 =back
 
