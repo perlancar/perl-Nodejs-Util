@@ -1,5 +1,12 @@
 Revision history for Nodejs-Util
 
+0.006   2016-07-03 (PERLANCAR)
+
+        - Add 'path' option to nodejs_available().
+
+        - Add system_nodejs().
+
+
 0.005   2016-07-01 (PERLANCAR)
 
         - Add nodejs_available().
