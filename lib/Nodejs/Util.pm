@@ -8,7 +8,11 @@ use strict;
 use warnings;
 
 use Exporter qw(import);
-our @EXPORT_OK = qw(get_nodejs_path nodejs_available);
+our @EXPORT_OK = qw(
+                       get_nodejs_path
+                       nodejs_available
+                       system_nodejs
+               );
 
 our %SPEC;
 
@@ -121,7 +125,7 @@ sub nodejs_available {
             };
         }
         push @filtered_paths, $path;
-        push @versions, "$v";
+        push @versions, defined($v) ? "$v" : undef;
     }
 
     $res->[2]                 = $all ? \@filtered_paths : $filtered_paths[0];
@@ -138,7 +142,55 @@ sub nodejs_available {
     $res;
 }
 
+sub system_nodejs {
+    require IPC::System::Options;
+    my $opts = ref($_[0]) eq 'HASH' ? shift : {};
+
+    my %detect_nodejs_args;
+    if ($opts->{harmony_scoping}) {
+        $detect_nodejs_args{min_version} = '0.5.10';
+    }
+    my $detect_res = nodejs_available(%detect_nodejs_args);
+    die "No eligible node.js binary available: ".
+        "$detect_res->[0] - $detect_res->[1]" unless $detect_res->[0] == 200;
+
+    my @extra_args;
+    if ($opts->{harmony_scoping}) {
+        my $node_v = $detect_res->[3]{'func.version'};
+        if (version->parse($node_v) < version->parse("2.0.0")) {
+            push @extra_args, "--use_strict", "--harmony_scoping";
+        }
+    }
+
+    IPC::System::Options::system(
+        $opts,
+        $detect_res->[2],
+        @extra_args,
+        @_,
+    );
+}
+
 1;
 # ABSTRACT: Utilities related to Node.js
+
+=head1 append:FUNCTIONS
+
+=head2 system_nodejs([ \%opts ], @argv)
+
+Will call L<IPC::System::Options>'s system(), but with node.js binary as the
+first argument. Known options:
+
+=over
+
+=item * harmony_scoping => bool
+
+If set to 1, will attempt to enable block scoping. This means at least node.js
+v0.5.10 (where C<--harmony_scoping> is first recognized). But
+C<--harmony_scoping> is no longer needed after v2.0.0 and no longer recognized
+in later versions.
+
+=back
+
+Other options will be passed to C<IPC::System::Options>'s C<system()>.
 
 =cut
