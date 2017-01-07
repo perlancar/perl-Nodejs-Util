@@ -1,5 +1,3 @@
-Revision history for Nodejs-Util
-
 0.006   2016-07-03 (PERLANCAR)
 
         - Add 'path' option to nodejs_available().
