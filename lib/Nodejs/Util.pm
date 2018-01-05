@@ -4,12 +4,13 @@ package Nodejs::Util;
 # VERSION
 
 use 5.010001;
-use strict;
+use strict 'subs', 'vars';
 use warnings;
 
 use Exporter qw(import);
 our @EXPORT_OK = qw(
                        get_nodejs_path
+                       nodejs_path
                        nodejs_available
                        system_nodejs
                        nodejs_module_path
@@ -29,7 +30,7 @@ _
     },
 );
 
-$SPEC{get_nodejs_path} = {
+$SPEC{nodejs_path} = {
     v => 1.1,
     summary => 'Check the availability of Node.js executable in PATH',
     description => <<'_',
@@ -43,7 +44,7 @@ _
     },
     result_naked => 1,
 };
-sub get_nodejs_path {
+sub nodejs_path {
     require File::Which;
     require IPC::System::Options;
 
@@ -67,6 +68,8 @@ sub get_nodejs_path {
     return undef unless @paths;
     \@paths;
 }
+
+*get_nodejs_path = \&nodejs_path;
 
 $SPEC{nodejs_available} = {
     v => 1.1,
@@ -268,6 +271,8 @@ sub nodejs_module_path {
 
 1;
 # ABSTRACT: Utilities related to Node.js
+
+=for Pod::Coverage ^(get_nodejs_path)$
 
 =head1 append:FUNCTIONS
 

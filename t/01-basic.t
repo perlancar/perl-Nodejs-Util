@@ -9,6 +9,7 @@ use File::chdir;
 use File::Slurper qw(write_text);
 use File::Temp qw(tempdir);
 use Nodejs::Util qw(
+                       nodejs_path
                        nodejs_module_path
                );
 
@@ -40,6 +41,11 @@ write_text("$tempdir/node_path/node_modules/a.node", "");
 write_text("$tempdir/.node_modules/g1.js", "");
 write_text("$tempdir/.node_libraries/g2.js", "");
 write_text("$tempdir/lib/node/g3.js", "");
+
+subtest nodejs_path => sub {
+    note "nodejs_path = ", nodejs_path();
+    ok(1);
+};
 
 subtest nodejs_module_path => sub {
     local $CWD = "$tempdir";
