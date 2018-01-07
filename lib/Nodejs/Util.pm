@@ -76,10 +76,9 @@ $SPEC{nodejs_available} = {
     summary => 'Check the availability of Node.js',
     description => <<'_',
 
-This is a more advanced alternative to `get_nodejs_path()`. Will check for
-`node` or `nodejs` in the PATH, like `get_nodejs_path()`. But you can also
-specify minimum version (and other options in the future). And it will return
-more details.
+This is a more advanced alternative to `nodejs_path()`. Will check for `node` or
+`nodejs` in the PATH, like `nodejs_path()`. But you can also specify minimum
+version (and other options in the future). And it will return more details.
 
 Will return status 200 if everything is okay. Actual result will return the path
 to executable, and result metadata will contain extra result like detected
@@ -108,7 +107,7 @@ sub nodejs_available {
 
     my $paths = do {
         local $ENV{PATH} = $args{path} if defined $args{path};
-        get_nodejs_path(all => 1);
+        nodejs_path(all => 1);
     };
     defined $paths or return [412, "node.js not detected in PATH"];
 
