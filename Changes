@@ -1,9 +1,9 @@
-0.012   2018-03-21 (PERLANCAR)
+0.012   2018-03-21  Released-By: PERLANCAR
 
 	- [test] Fix test code (what was I thinking??).
 
 
-0.011   2018-03-09 (PERLANCAR)
+0.011   2018-03-09  Released-By: PERLANCAR
 
 	- No functional changes.
 
@@ -12,37 +12,37 @@
 	- [doc] Add some more docs.
 
 
-0.010   2018-03-04 (PERLANCAR)
+0.010   2018-03-04  Released-By: PERLANCAR
 
 	- [test] Fix comparing paths [RT#124072].
 
 
-0.009   2018-01-07 (PERLANCAR)
+0.009   2018-01-07  Released-By: PERLANCAR
 
 	- No functional changes.
 
 	- [doc] Remove remaining references to get_nodejs_path().
 
 
-0.008   2018-01-06 (PERLANCAR)
+0.008   2018-01-06  Released-By: PERLANCAR
 
 	- Rename get_nodejs_path() to nodejs_path() for more consistency,
 	  old name is not removed but no longer documented.
 
 
-0.007   2018-01-03 (PERLANCAR)
+0.007   2018-01-03  Released-By: PERLANCAR
 
 	- Add function: nodejs_module_path().
 
 
-0.006   2016-07-03 (PERLANCAR)
+0.006   2016-07-03  Released-By: PERLANCAR
 
         - Add 'path' option to nodejs_available().
 
         - Add system_nodejs().
 
 
-0.005   2016-07-01 (PERLANCAR)
+0.005   2016-07-01  Released-By: PERLANCAR
 
         - Add nodejs_available().
 
@@ -51,25 +51,25 @@
         - Adjust to IPC::System::Options 0.27 (backtick renamed to readpipe).
 
 
-0.004   2016-06-04 (PERLANCAR)
+0.004   2016-06-04  Released-By: PERLANCAR
 
 	- Use IPC::System::Options 0.25's backtick() for proper
 	  shell-quoting on win32 [GH#1].
 
 
-0.003   2016-05-17 (PERLANCAR)
+0.003   2016-05-17  Released-By: PERLANCAR
 
 	- Rename dist from Data-Sah-Util-JS to Nodejs-Util because there is
 	  currently nothing Data::Sah-specific about the code.
 
 
-0.002   2016-05-17 (PERLANCAR)
+0.002   2016-05-17  Released-By: PERLANCAR
 
         - Rename dist from Data-Sah-Util-JS to Nodejs-Util because there is no
           Data::Sah-specific stuff in this.
 
 
-0.001   2016-05-17 (PERLANCAR)
+0.001   2016-05-17  Released-By: PERLANCAR
 
         - First release, split from Data-Sah to avoid code duplication (planning
           to use this from Data-Sah-CoerceJS also).
